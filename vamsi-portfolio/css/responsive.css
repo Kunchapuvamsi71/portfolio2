@@ -1,0 +1,46 @@
+@media (max-width: 1080px) {
+	.site-header { gap: 1rem; }
+	.primary-navigation { gap: .75rem; }
+	.primary-navigation a { font-size: .7rem; }
+	.hero { grid-template-columns: minmax(0, 1.1fr) minmax(270px, .9fr); }
+	.hero h1 { font-size: 5.4rem; }
+	.hero-art { min-height: 420px; }
+}
+
+@media (max-width: 860px) {
+	.site-header { min-height: 68px; }
+	.nav-toggle { width: 42px; height: 42px; display: grid; align-content: center; justify-items: center; gap: 6px; border: 1px solid var(--line); color: var(--ink); background: transparent; cursor: pointer; }
+	.nav-toggle span { width: 17px; height: 1px; background: currentColor; transition: transform .2s ease; }
+	.nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+	.nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+	.primary-navigation { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: none; align-items: stretch; flex-direction: column; gap: 0; padding: .5rem 1.25rem 1rem; border-bottom: 1px solid var(--line); background: rgba(9, 13, 18, .98); }
+	.primary-navigation.is-open { display: flex; }
+	.primary-navigation a { padding: .8rem .1rem; border-bottom: 1px solid rgba(199, 214, 228, .08); font-size: .82rem; }
+	.primary-navigation a::after { display: none; }
+	.hero { min-height: auto; grid-template-columns: 1fr; gap: 2rem; padding-top: 4.2rem; }
+	.hero-copy { max-width: 650px; }
+	.hero h1 { font-size: 4.5rem; }
+	.hero-role { font-size: 1rem; }
+	.hero-art { min-height: 350px; }
+	.home-strip { flex-wrap: wrap; justify-content: flex-start; }
+	.home-strip p { width: 100%; }
+}
+
+@media (max-width: 520px) {
+	.site-header { padding-inline: 1rem; }
+	.brand { font-size: .85rem; }
+	.hero { width: min(100% - 2rem, 1370px); padding-top: 3.4rem; }
+	.hero h1 { font-size: 2.8rem; }
+	.hero-role { line-height: 1.6; }
+	.hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
+	.hero-actions .button:first-child { grid-column: 1 / -1; }
+	.hero-actions .button { padding-inline: .6rem; font-size: .76rem; }
+	.hero-art { min-height: 270px; }
+	.home-strip { padding-inline: 1rem; }
+	.home-strip a { font-size: .7rem; }
+	.site-footer { align-items: flex-start; flex-direction: column; padding-inline: 1rem; }
+	.page-main { width: min(100% - 2rem, 1200px); padding-top: 3rem; }
+	.page-heading h1 { font-size: 2.7rem; }
+	.document-card, .record-card { padding: .85rem; }
+	.document-preview iframe { height: 220px; }
+}
