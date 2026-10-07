@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // SETTINGS
   // ============================================================
 
-  // Pages are inside /pages/, so we go one level up
-  // to reach /assets/documents/
   const DOCUMENTS_BASE = "../assets/documents/";
 
   // ============================================================
@@ -17,25 +15,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const resumes = [
     {
       title: "AI / ML Engineer",
-      file: "Vamsi_AIML_Engineer_Resume.pdf",
+      file: "resumes/Vamsi_AIML_Engineer_Resume.pdf",
       description:
         "A focused resume for Artificial Intelligence and Machine Learning roles."
     },
     {
       title: "Software Developer",
-      file: "Vamsi_Software_Developer_Resume_2Page.pdf",
+      file: "resumes/Vamsi_Software_Developer_Resume_2Page.pdf",
       description:
         "A focused resume for software development and programming roles."
     },
     {
       title: "Data Analyst",
-      file: "Vamsi_Data_Analyst_Resume_2Page.pdf",
+      file: "resumes/Vamsi_Data_Analyst_Resume_2Page.pdf",
       description:
         "A focused resume for data analysis, Python, Pandas and visualization roles."
     },
     {
       title: "Business Development",
-      file: "Vamsi_Business_Development_Resume_2Page.pdf",
+      file: "resumes/Vamsi_Business_Development_Resume_2Page.pdf",
       description:
         "A focused resume for business development and related opportunities."
     }
@@ -72,11 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================================
   // CERTIFICATIONS
   // ============================================================
-  //
-  // IMPORTANT:
-  // Keep your existing certificate filenames here.
-  // These are the filenames visible in your existing main.js.
-  //
 
   const certifications = [
     {
@@ -127,30 +120,112 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   // ============================================================
-  // PROJECTS
+  // ALL 13 PROJECTS
   // ============================================================
 
   const projects = [
     {
-      title: "Activity Performance Monitor",
-      description:
-        "A computer-vision based project for extracting and processing activity-related features.",
-      technologies:
-        "Python, OpenCV, Pandas, NumPy, Matplotlib"
-    },
-    {
       title: "Customer Churn Prediction",
       description:
-        "Machine-learning project for predicting customer churn using cleaned and processed data.",
+        "A machine-learning project for predicting customer churn using cleaned and processed data.",
       technologies:
-        "Python, scikit-learn, Pandas"
+        "Python, Pandas, NumPy, scikit-learn"
     },
+
     {
       title: "Sentiment Analysis of Product Reviews",
       description:
-        "Natural-language-processing project that classifies product reviews as positive or negative.",
+        "A natural-language-processing project that analyzes product reviews and classifies sentiment.",
       technologies:
-        "Python, scikit-learn, NLTK"
+        "Python, NLP, NLTK, scikit-learn"
+    },
+
+    {
+      title: "Activity Performance Monitor",
+      description:
+        "A project for monitoring and analyzing activity performance using data-processing and computer-vision techniques.",
+      technologies:
+        "Python, OpenCV, Pandas, NumPy, Matplotlib"
+    },
+
+    {
+      title: "Retail Sales Analysis",
+      description:
+        "A data-analysis project focused on understanding retail sales performance, trends and business insights.",
+      technologies:
+        "Python, Pandas, NumPy, Matplotlib"
+    },
+
+    {
+      title: "Library Management System",
+      description:
+        "A software project for managing books, users and library operations.",
+      technologies:
+        "C++, OOP, Data Structures"
+    },
+
+    {
+      title: "Expense Tracker Web App",
+      description:
+        "A web application for recording, managing and tracking personal expenses.",
+      technologies:
+        "HTML, CSS, JavaScript"
+    },
+
+    {
+      title: "Sorting Algorithm Visualizer",
+      description:
+        "An interactive project for visualizing sorting algorithms and understanding how they work.",
+      technologies:
+        "HTML, CSS, JavaScript, Algorithms"
+    },
+
+    {
+      title: "Student Performance Analysis",
+      description:
+        "A data-analysis project examining student performance and identifying useful patterns from academic data.",
+      technologies:
+        "Python, Pandas, NumPy, Matplotlib"
+    },
+
+    {
+      title: "Movie Ratings Exploratory Analysis",
+      description:
+        "An exploratory data-analysis project studying movie ratings and related patterns.",
+      technologies:
+        "Python, Pandas, NumPy, Matplotlib"
+    },
+
+    {
+      title: "Lead Conversion Analysis",
+      description:
+        "An analysis project focused on understanding lead conversion patterns and business performance.",
+      technologies:
+        "Python, Pandas, Data Analysis"
+    },
+
+    {
+      title: "Ed-Tech Market Research and Pitch",
+      description:
+        "A market-research and business-development project focused on the education technology sector.",
+      technologies:
+        "Market Research, Business Analysis, Presentation"
+    },
+
+    {
+      title: "Learning Preferences Survey",
+      description:
+        "A survey-based project for understanding learning preferences and analyzing collected responses.",
+      technologies:
+        "Survey Analysis, Data Analysis"
+    },
+
+    {
+      title: "Personal Portfolio Website",
+      description:
+        "A personal portfolio website presenting education, skills, projects, internships, certifications and resumes.",
+      technologies:
+        "HTML, CSS, JavaScript, GitHub Pages"
     }
   ];
 
@@ -170,6 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function getElement(...ids) {
     for (const id of ids) {
       const element = document.getElementById(id);
+
       if (element) {
         return element;
       }
@@ -178,10 +254,28 @@ document.addEventListener("DOMContentLoaded", function () {
     return null;
   }
 
-  function setHTML(element, html) {
-    if (element) {
-      element.innerHTML = html;
+  /*
+   * Finds a container using IDs first.
+   * If the expected container does not exist, it searches
+   * for common class names.
+   */
+  function findContainer(ids, classes) {
+
+    const byId = getElement(...ids);
+
+    if (byId) {
+      return byId;
     }
+
+    for (const className of classes) {
+      const element = document.querySelector("." + className);
+
+      if (element) {
+        return element;
+      }
+    }
+
+    return null;
   }
 
   // ============================================================
@@ -197,16 +291,19 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   if (menuButton && navMenu) {
+
     menuButton.addEventListener("click", function () {
       navMenu.classList.toggle("active");
       menuButton.classList.toggle("active");
     });
 
     navMenu.querySelectorAll("a").forEach(function (link) {
+
       link.addEventListener("click", function () {
         navMenu.classList.remove("active");
         menuButton.classList.remove("active");
       });
+
     });
   }
 
@@ -218,9 +315,12 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.pathname.split("/").pop().toLowerCase();
 
   document.querySelectorAll("nav a, .nav-links a").forEach(function (link) {
+
     const href = link.getAttribute("href");
 
-    if (!href) return;
+    if (!href) {
+      return;
+    }
 
     const cleanHref = href
       .split("#")[0]
@@ -235,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
       link.classList.add("active");
     }
+
   });
 
   // ============================================================
@@ -242,17 +343,25 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================================
 
   function renderResumes(container) {
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     container.innerHTML = resumes
       .map(function (resume) {
-        const pdfPath = DOCUMENTS_BASE + "resumes/" + resume.file;
+
+        const pdfPath =
+          DOCUMENTS_BASE + resume.file;
 
         return `
           <article class="resume-card">
+
             <div class="resume-card-content">
 
-              <h3>${escapeHTML(resume.title)}</h3>
+              <h3>
+                ${escapeHTML(resume.title)}
+              </h3>
 
               <p>
                 ${escapeHTML(resume.description)}
@@ -280,8 +389,10 @@ document.addEventListener("DOMContentLoaded", function () {
               </div>
 
             </div>
+
           </article>
         `;
+
       })
       .join("");
   }
@@ -291,10 +402,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================================
 
   function renderAcademics(container) {
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     container.innerHTML = academics
       .map(function (item) {
+
         return `
           <article class="academic-card">
 
@@ -318,6 +433,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           </article>
         `;
+
       })
       .join("");
   }
@@ -327,7 +443,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================================
 
   function renderCertifications(container) {
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     container.innerHTML = certifications
       .map(function (certificate) {
@@ -369,6 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           </article>
         `;
+
       })
       .join("");
   }
@@ -378,14 +498,23 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================================
 
   function renderInternships(container) {
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     container.innerHTML = internships
       .map(function (internship) {
 
         const points = internship.description
           .map(function (point) {
-            return `<li>${escapeHTML(point)}</li>`;
+
+            return `
+              <li>
+                ${escapeHTML(point)}
+              </li>
+            `;
+
           })
           .join("");
 
@@ -400,7 +529,7 @@ document.addEventListener("DOMContentLoaded", function () {
               ${escapeHTML(internship.company)}
             </h4>
 
-            <p>
+            <p class="internship-duration">
               ${escapeHTML(internship.duration)}
             </p>
 
@@ -410,6 +539,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           </article>
         `;
+
       })
       .join("");
   }
@@ -419,7 +549,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================================
 
   function renderProjects(container) {
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     container.innerHTML = projects
       .map(function (project) {
@@ -442,51 +575,117 @@ document.addEventListener("DOMContentLoaded", function () {
 
           </article>
         `;
+
       })
       .join("");
   }
 
   // ============================================================
-  // FIND COMMON CONTAINER IDs
+  // FIND CONTAINERS
   // ============================================================
 
-  const resumesContainer = getElement(
-    "resumes-container",
-    "resume-container",
-    "resumes",
-    "resume-list"
+  const resumesContainer = findContainer(
+    [
+      "resumes-container",
+      "resume-container",
+      "resumes",
+      "resume-list",
+      "resume-grid"
+    ],
+    [
+      "resumes-container",
+      "resume-container",
+      "resume-list",
+      "resume-grid",
+      "resumes-grid"
+    ]
   );
 
-  const academicsContainer = getElement(
-    "academics-container",
-    "academic-container",
-    "academics",
-    "education-container"
+  const academicsContainer = findContainer(
+    [
+      "academics-container",
+      "academic-container",
+      "academics",
+      "education-container",
+      "academic-list",
+      "academic-grid"
+    ],
+    [
+      "academics-container",
+      "academic-container",
+      "education-container",
+      "academic-list",
+      "academic-grid"
+    ]
   );
 
-  const certificationsContainer = getElement(
-    "certifications-container",
-    "certification-container",
-    "certifications",
-    "certificate-container"
+  const certificationsContainer = findContainer(
+    [
+      "certifications-container",
+      "certification-container",
+      "certifications",
+      "certificate-container",
+      "certification-list",
+      "certificate-list"
+    ],
+    [
+      "certifications-container",
+      "certification-container",
+      "certificate-container",
+      "certification-list",
+      "certificate-list",
+      "certification-grid"
+    ]
   );
 
-  const internshipsContainer = getElement(
-    "internships-container",
-    "internship-container",
-    "internships",
-    "experience-container"
+  const internshipsContainer = findContainer(
+    [
+      "internships-container",
+      "internship-container",
+      "internships",
+      "internship-list",
+      "internships-list",
+      "internship-grid",
+      "internships-grid",
+      "experience-container",
+      "experience-list"
+    ],
+    [
+      "internships-container",
+      "internship-container",
+      "internships",
+      "internship-list",
+      "internships-list",
+      "internship-grid",
+      "internships-grid",
+      "experience-container",
+      "experience-list",
+      "experience-grid"
+    ]
   );
 
-  const projectsContainer = getElement(
-    "projects-container",
-    "project-container",
-    "projects",
-    "project-list"
+  const projectsContainer = findContainer(
+    [
+      "projects-container",
+      "project-container",
+      "projects",
+      "project-list",
+      "projects-list",
+      "project-grid",
+      "projects-grid"
+    ],
+    [
+      "projects-container",
+      "project-container",
+      "project-list",
+      "projects-list",
+      "project-grid",
+      "projects-grid"
+    ]
   );
 
   // ============================================================
-  // RENDER ALL SECTIONS
+  // RENDER
   // ============================================================
 
   renderResumes(resumesContainer);
@@ -503,7 +702,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const file = link.getAttribute("data-pdf");
 
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     link.setAttribute(
       "href",
@@ -519,42 +720,50 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(
     "#current-year, .current-year"
   ).forEach(function (element) {
-    element.textContent = new Date().getFullYear();
+
+    element.textContent =
+      new Date().getFullYear();
+
   });
 
   // ============================================================
   // SMOOTH SCROLL
   // ============================================================
 
-  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+  document.querySelectorAll(
+    'a[href^="#"]'
+  ).forEach(function (link) {
 
-    link.addEventListener("click", function (event) {
+    link.addEventListener(
+      "click",
+      function (event) {
 
-      const targetId =
-        link.getAttribute("href");
+        const targetId =
+          link.getAttribute("href");
 
-      if (
-        !targetId ||
-        targetId === "#"
-      ) {
-        return;
+        if (
+          !targetId ||
+          targetId === "#"
+        ) {
+          return;
+        }
+
+        const target =
+          document.querySelector(targetId);
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
       }
-
-      const target =
-        document.querySelector(targetId);
-
-      if (!target) {
-        return;
-      }
-
-      event.preventDefault();
-
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-    });
+    );
 
   });
 
