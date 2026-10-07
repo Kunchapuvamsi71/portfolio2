@@ -1,82 +1,41 @@
 const projects = [
 	{
-		title: "Webwing",
-		description: "Full-stack AI travel planner that turns trip preferences into day-by-day itineraries and budget plans.",
-		technologies: ["Python", "Flask", "SQLite", "SQLAlchemy", "HTML", "CSS", "JavaScript", "Google Gemini"],
-		features: ["Generates structured itineraries and budgets", "Supports live AI and offline mock modes", "Stores saved trips in SQLite"],
-		github: "https://github.com/Kunchapuvamsi71/webwing"
+		title: "AI Resume ATS & Skill Gap Optimizer",
+		description: "AI-powered application that analyzes resume text against target job descriptions, calculates real-time ATS match scores, extracts missing skill keywords, and generates actionable tailoring recommendations.",
+		technologies: ["Python", "FastAPI", "scikit-learn", "Google Gemini", "JavaScript", "HTML5", "CSS3"],
+		features: ["Real-time semantic ATS match scoring", "Matched vs. missing skill breakdown badges", "Actionable AI bullet-point tailoring recommendations"],
+		github: "https://github.com/Kunchapuvamsi71/ai-resume-ats-optimizer",
+		demo: "../pages/demo-ats-optimizer.html"
 	},
 	{
-		title: "ChurnWise",
-		description: "Full-stack customer churn prediction system with a trained machine-learning model and analytics dashboard.",
-		technologies: ["JavaScript", "Python", "React", "Flask", "SQLite", "scikit-learn"],
-		features: ["Predicts customer churn risk", "Tracks prediction history", "Compares model evaluation metrics"],
-		github: "https://github.com/Kunchapuvamsi71/ChurnWise"
-	},
-	{
-		title: "Personal Data Leak Detector",
-		description: "Local-first application that scans pasted text and uploaded files for common personal data and secrets.",
-		technologies: ["Python", "JavaScript", "HTML", "FastAPI"],
-		features: ["Scans text and uploaded files", "Redacts detected values", "Does not persist scan results by default"],
-		github: "https://github.com/Kunchapuvamsi71/personal-data-leak-detector"
+		title: "ChurnWise 2.0 (Customer Churn ML Predictor)",
+		description: "Full-stack predictive machine learning system for customer churn risk analysis featuring SHAP model explainability, feature importance rankings, and an interactive risk simulation dashboard.",
+		technologies: ["Python", "scikit-learn", "XGBoost", "Flask", "React", "Chart.js", "SQLite"],
+		features: ["Predicts customer churn risk & probability", "SHAP feature importance breakdown", "Single & batch prediction history tracking"],
+		github: "https://github.com/Kunchapuvamsi71/ChurnWise",
+		demo: "../pages/demo-churnwise.html"
 	},
 	{
 		title: "Movie Universe Graph Explorer",
-		description: "Explores actor connections with graph search and recommends similar movies using TF-IDF and cosine similarity.",
-		technologies: ["Python", "Streamlit", "scikit-learn"],
-		features: ["Finds actor connections with BFS", "Includes weighted paths with Dijkstra", "Recommends movies by content similarity"],
+		description: "Graph search engine and recommendation system that explores actor co-starring connections using BFS and Dijkstra algorithms, paired with TF-IDF cosine similarity for movie recommendations.",
+		technologies: ["Python", "Streamlit", "NetworkX", "scikit-learn", "Pandas"],
+		features: ["Finds actor connection paths with BFS", "Weighted graph traversal with Dijkstra", "Content-based movie recommendation engine"],
 		github: "https://github.com/Kunchapuvamsi71/movie-graph-explorer",
 		demo: "https://movie-graph-explorer-6ufrejc8vsbzyexmquwqwv.streamlit.app/"
 	},
 	{
-		title: "Carbon Footprint Tracker",
-		description: "Web app to calculate carbon emissions.",
-		technologies: ["HTML"],
-		github: "https://github.com/Kunchapuvamsi71/carbon-footprint-tracker-",
-		demo: "https://deluxe-lamington-2fafad.netlify.app/"
+		title: "Webwing (AI Travel Itinerary Planner)",
+		description: "Full-stack AI travel planner that processes trip preferences into customized day-by-day itineraries and budget breakdowns using Google Gemini AI.",
+		technologies: ["Python", "Flask", "React", "Tailwind CSS", "SQLite", "Google Gemini API"],
+		features: ["Generates structured AI itineraries & budget plans", "Supports live Gemini AI & offline mock modes", "Saves and manages trip plans in SQLite database"],
+		github: "https://github.com/Kunchapuvamsi71/webwing"
 	},
 	{
-		title: "BatTrip",
-		description: "Public repository with frontend, backend, data, and machine-learning folders; GitHub does not provide a project summary.",
-		technologies: ["HTML", "Python", "JavaScript", "CSS"],
-		github: "https://github.com/Kunchapuvamsi71/BatTrip"
-	},
-	{
-		title: "Webwingapp",
-		description: "Responsive travel app homepage with destination browsing, itinerary planning, saved trips, and interactive navigation.",
-		technologies: ["React", "JavaScript", "Vite", "Tailwind CSS", "lucide-react"],
-		features: ["Destination carousel and search", "Interactive app navigation", "Saved destinations"],
-		github: "https://github.com/Kunchapuvamsi71/Webwingapp"
-	},
-	{
-		title: "Portfolio1",
-		description: "Single-page personal portfolio built with plain HTML, CSS, and JavaScript.",
-		technologies: ["HTML", "CSS", "JavaScript"],
-		github: "https://github.com/Kunchapuvamsi71/Portfolio1"
-	},
-	{
-		title: "portfolio-",
-		description: "Static portfolio website with separate about, projects, and resume pages.",
-		technologies: ["HTML", "CSS"],
-		github: "https://github.com/Kunchapuvamsi71/portfolio-"
-	},
-	{
-		title: "Webwing1",
-		description: "Repository includes an HTML entry page, stylesheet, and JavaScript file; no project description is published.",
-		technologies: ["HTML", "CSS", "JavaScript"],
-		github: "https://github.com/Kunchapuvamsi71/Webwing1"
-	},
-	{
-		title: "Population Area Explorer",
-		description: "Repository currently has only a placeholder README title; no project description or source language is published.",
-		technologies: [],
-		github: "https://github.com/Kunchapuvamsi71/population-area-explorer"
-	},
-	{
-		title: "AI Travel Planner",
-		description: "This public repository is currently empty on GitHub, so no implementation details are available yet.",
-		technologies: [],
-		github: "https://github.com/Kunchapuvamsi71/ai-travel-planner"
+		title: "Personal Data Leak Detector",
+		description: "Local-first security application that scans raw text and uploaded files for sensitive personal data (PII) and secret API keys, automatically redacting flagged values.",
+		technologies: ["Python", "FastAPI", "JavaScript", "HTML", "Regex Engine"],
+		features: ["Scans text inputs & document uploads", "Automatic inline redaction of detected secrets", "Local-first execution with zero data retention"],
+		github: "https://github.com/Kunchapuvamsi71/personal-data-leak-detector"
 	}
 ];
 
@@ -136,8 +95,10 @@ function createProjectCard(project) {
 		const link = document.createElement("a");
 		link.className = "text-link";
 		link.href = url;
-		link.target = "_blank";
-		link.rel = "noreferrer";
+		if (url.startsWith("http")) {
+			link.target = "_blank";
+			link.rel = "noreferrer";
+		}
 		link.textContent = label;
 		links.append(link);
 	}
@@ -149,7 +110,7 @@ function createProjectCard(project) {
 function createImagePlaceholder() {
 	const placeholder = document.createElement("span");
 	placeholder.className = "image-placeholder";
-	placeholder.textContent = "Project image not added";
+	placeholder.textContent = "Interactive Project";
 	return placeholder;
 }
 
@@ -163,7 +124,7 @@ if (projectGrid) {
 		const heading = document.createElement("h2");
 		heading.textContent = "Projects will appear here";
 		const description = document.createElement("p");
-		description.textContent = "Project details have not been supplied yet. Add verified project entries in js/projects.js; add screenshots under assets/images/projects/.";
+		description.textContent = "Project details have not been supplied yet.";
 		empty.append(heading, description);
 		projectGrid.append(empty);
 	}

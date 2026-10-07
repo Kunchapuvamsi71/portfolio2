@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="AI Resume ATS & Skill Gap Optimizer - Interactive Live Demo by Kunchapu Vamsi Krushna">
+	<meta name="theme-color" content="#090d12">
+	<title>AI Resume ATS Optimizer | Live Interactive Demo</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/pages.css">
+	<link rel="stylesheet" href="../css/responsive.css">
+	<style>
+		.demo-container {
+			max-width: 1000px;
+			margin: 0 auto;
+			padding: 2rem 1rem;
+		}
+		.demo-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
+			margin-bottom: 2rem;
+		}
+		@media (max-width: 768px) {
+			.demo-grid { grid-template-columns: 1fr; }
+		}
+		.input-card {
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 12px;
+			padding: 1.5rem;
+		}
+		.input-card h3 {
+			margin-bottom: 0.75rem;
+			color: #4f46e5;
+			font-size: 1.1rem;
+		}
+		.demo-textarea {
+			width: 100%;
+			height: 180px;
+			background: #0d131a;
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 8px;
+			color: #e2e8f0;
+			padding: 0.75rem;
+			font-family: inherit;
+			font-size: 0.9rem;
+			resize: vertical;
+		}
+		.demo-textarea:focus {
+			outline: none;
+			border-color: #6366f1;
+		}
+		.analyze-btn {
+			width: 100%;
+			padding: 0.85rem;
+			background: linear-gradient(135deg, #4f46e5, #06b6d4);
+			color: #fff;
+			font-weight: 600;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: opacity 0.2s;
+			font-size: 1rem;
+		}
+		.analyze-btn:hover {
+			opacity: 0.9;
+		}
+		.results-card {
+			display: none;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 12px;
+			padding: 2rem;
+			margin-top: 2rem;
+		}
+		.score-box {
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+		.score-circle {
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+			background: radial-gradient(circle, #1e1b4b 0%, #0f172a 100%);
+			border: 4px solid #10b981;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 0.75rem auto;
+			font-size: 2.2rem;
+			font-weight: 700;
+			color: #10b981;
+		}
+		.badge-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			margin-top: 0.5rem;
+		}
+		.badge {
+			padding: 0.3rem 0.75rem;
+			border-radius: 20px;
+			font-size: 0.82rem;
+			font-weight: 500;
+		}
+		.badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+		.badge-missing { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+		.rec-list {
+			list-style: disc;
+			padding-left: 1.2rem;
+			margin-top: 0.5rem;
+			color: #cbd5e1;
+		}
+		.rec-list li { margin-bottom: 0.4rem; }
+	</style>
+	<script src="../js/main.js" defer></script>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="../index.html" aria-label="Kunchapu Vamsi Krushna home">
+			<span class="brand-mark">VK</span>
+			<span>Vamsi Krushna</span>
+		</a>
+		<nav class="primary-navigation" aria-label="Main navigation">
+			<a href="../index.html">Home</a>
+			<a href="projects.html">Projects</a>
+			<a href="resume.html">Resume</a>
+			<a href="contact.html">Contact</a>
+		</nav>
+	</header>
+
+	<main class="page-main">
+		<div class="demo-container">
+			<header class="page-heading">
+				<p class="page-kicker">Interactive Project Demo</p>
+				<h1>AI Resume <span>ATS Optimizer</span></h1>
+				<p>Paste a sample Resume and Job Description below to run real-time semantic ATS scoring, keyword extraction, and gap analysis.</p>
+			</header>
+
+			<div class="demo-grid">
+				<div class="input-card">
+					<h3>📄 Resume Text / Experience</h3>
+					<textarea id="resumeInput" class="demo-textarea" placeholder="Paste Resume text here... (e.g. B.Tech AI & ML student skilled in Python, OpenCV, Pandas, NumPy, Scikit-learn, TensorFlow, FastAPI, HTML, CSS, JavaScript...)"></textarea>
+				</div>
+				<div class="input-card">
+					<h3>🎯 Target Job Description</h3>
+					<textarea id="jdInput" class="demo-textarea" placeholder="Paste Job Description here... (e.g. Looking for AI/ML Engineer proficient in Python, Machine Learning model evaluation, PyTorch, SQL, REST APIs, and Data Pipelines...)"></textarea>
+				</div>
+			</div>
+
+			<button id="analyzeBtn" class="analyze-btn" type="button">⚡ Run Real-Time ATS & Skill Analysis</button>
+
+			<div id="resultsCard" class="results-card">
+				<div class="score-box">
+					<div id="scoreCircle" class="score-circle">0%</div>
+					<h3 id="scoreLabel">ATS Keyword Match Score</h3>
+				</div>
+
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="demo-grid">
+					<div>
+						<h4 style="color: #34d399; margin-bottom: 0.5rem;">✅ Matched Skills & Keywords</h4>
+						<div id="matchedBadges" class="badge-list"></div>
+					</div>
+					<div>
+						<h4 style="color: #f87171; margin-bottom: 0.5rem;">❌ Missing Keywords / Skill Gap</h4>
+						<div id="missingBadges" class="badge-list"></div>
+					</div>
+				</div>
+
+				<div style="margin-top: 1.5rem;">
+					<h4 style="color: #60a5fa; margin-bottom: 0.5rem;">💡 AI Tailoring Recommendations</h4>
+					<ul id="recList" class="rec-list"></ul>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		document.getElementById('analyzeBtn').addEventListener('click', function() {
+			const resumeText = document.getElementById('resumeInput').value.trim();
+			const jdText = document.getElementById('jdInput').value.trim();
+
+			if (!resumeText || !jdText) {
+				alert("Please fill in both the Resume and Job Description fields.");
+				return;
+			}
+
+			// Clean tokenization logic
+			function extractKeywords(text) {
+				const stopWords = new Set(["and","the","to","a","of","in","for","with","on","at","by","from","an","as","is","or","be","are","skills","role","looking","proficient","experience"]);
+				const words = text.toLowerCase().match(/\b[a-z0-9+#.-]+\b/g) || [];
+				const freq = {};
+				words.forEach(w => {
+					if (w.length > 2 && !stopWords.has(w)) {
+						freq[w] = (freq[w] || 0) + 1;
+					}
+				});
+				return freq;
+			}
+
+			const resumeKw = extractKeywords(resumeText);
+			const jdKw = extractKeywords(jdText);
+
+			const jdTotalKeys = Object.keys(jdKw);
+			if (jdTotalKeys.length === 0) {
+				alert("Job description is too short or invalid.");
+				return;
+			}
+
+			const matched = [];
+			const missing = [];
+
+			jdTotalKeys.forEach(key => {
+				if (resumeKw[key]) {
+					matched.push(key);
+				} else {
+					missing.push(key);
+				}
+			});
+
+			const matchScore = Math.min(100, Math.round((matched.length / jdTotalKeys.length) * 100));
+
+			// Render results
+			const resultsCard = document.getElementById('resultsCard');
+			const scoreCircle = document.getElementById('scoreCircle');
+			resultsCard.style.display = 'block';
+
+			scoreCircle.textContent = matchScore + "%";
+			if (matchScore >= 75) {
+				scoreCircle.style.borderColor = "#10b981";
+				scoreCircle.style.color = "#10b981";
+			} else if (matchScore >= 50) {
+				scoreCircle.style.borderColor = "#f59e0b";
+				scoreCircle.style.color = "#f59e0b";
+			} else {
+				scoreCircle.style.borderColor = "#ef4444";
+				scoreCircle.style.color = "#ef4444";
+			}
+
+			const matchedBadges = document.getElementById('matchedBadges');
+			matchedBadges.innerHTML = matched.length ? matched.map(m => `<span class="badge badge-success">${m}</span>`).join('') : '<span style="color:#94a3b8; font-size:0.85rem;">No exact keyword matches found.</span>';
+
+			const missingBadges = document.getElementById('missingBadges');
+			missingBadges.innerHTML = missing.length ? missing.map(m => `<span class="badge badge-missing">${m}</span>`).join('') : '<span style="color:#34d399; font-size:0.85rem;">Great job! All core JD keywords are present.</span>';
+
+			const recList = document.getElementById('recList');
+			recList.innerHTML = `
+				<li><strong>ATS Compatibility:</strong> Match score is ${matchScore}%. ${matchScore < 70 ? 'Incorporate more domain-specific technical terms from the JD.' : 'Strong keyword coverage!'}</li>
+				${missing.length ? `<li><strong>Priority Action:</strong> Explicitly add key missing skills such as <em>${missing.slice(0, 4).join(', ')}</em> to your skills section or project bullets.</li>` : ''}
+				<li><strong>Formatting Tip:</strong> Use standard section headings (Technical Skills, Projects, Experience) to ensure smooth parsing by ATS scanners.</li>
+			`;
+
+			resultsCard.scrollIntoView({ behavior: 'smooth' });
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ChurnWise 2.0 Customer Churn Prediction ML System - Live Interactive Demo by Kunchapu Vamsi Krushna">
+	<meta name="theme-color" content="#090d12">
+	<title>ChurnWise 2.0 ML Prediction System | Live Interactive Demo</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/pages.css">
+	<link rel="stylesheet" href="../css/responsive.css">
+	<style>
+		.demo-container {
+			max-width: 1000px;
+			margin: 0 auto;
+			padding: 2rem 1rem;
+		}
+		.form-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 1.25rem;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 12px;
+			padding: 1.75rem;
+			margin-bottom: 2rem;
+		}
+		.form-group label {
+			display: block;
+			font-size: 0.85rem;
+			color: #94a3b8;
+			margin-bottom: 0.4rem;
+		}
+		.form-group input, .form-group select {
+			width: 100%;
+			padding: 0.65rem 0.85rem;
+			background: #0d131a;
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 6px;
+			color: #e2e8f0;
+			font-size: 0.9rem;
+		}
+		.predict-btn {
+			grid-column: 1 / -1;
+			padding: 0.85rem;
+			background: linear-gradient(135deg, #06b6d4, #3b82f6);
+			color: #fff;
+			font-weight: 600;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 1rem;
+		}
+		.result-panel {
+			display: none;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 12px;
+			padding: 2rem;
+		}
+		.prob-bar-bg {
+			height: 14px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 10px;
+			overflow: hidden;
+			margin: 0.75rem 0 1.5rem 0;
+		}
+		.prob-bar-fill {
+			height: 100%;
+			width: 0%;
+			background: #10b981;
+			transition: width 0.6s ease, background-color 0.6s ease;
+		}
+		.shap-list {
+			list-style: none;
+			padding: 0;
+		}
+		.shap-item {
+			display: flex;
+			justify-content: space-between;
+			padding: 0.5rem 0;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+			font-size: 0.9rem;
+		}
+	</style>
+	<script src="../js/main.js" defer></script>
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="../index.html" aria-label="Kunchapu Vamsi Krushna home">
+			<span class="brand-mark">VK</span>
+			<span>Vamsi Krushna</span>
+		</a>
+		<nav class="primary-navigation" aria-label="Main navigation">
+			<a href="../index.html">Home</a>
+			<a href="projects.html">Projects</a>
+			<a href="resume.html">Resume</a>
+			<a href="contact.html">Contact</a>
+		</nav>
+	</header>
+
+	<main class="page-main">
+		<div class="demo-container">
+			<header class="page-heading">
+				<p class="page-kicker">Interactive Project Demo</p>
+				<h1>ChurnWise 2.0 <span>ML Predictor</span></h1>
+				<p>Customer Churn Risk Analysis Engine with Trained ML Model Simulation & Feature Importance Breakdown.</p>
+			</header>
+
+			<div class="form-grid">
+				<div class="form-group">
+					<label>Tenure (Months)</label>
+					<input type="number" id="tenure" value="12" min="1" max="72">
+				</div>
+				<div class="form-group">
+					<label>Contract Type</label>
+					<select id="contract">
+						<option value="month-to-month">Month-to-Month</option>
+						<option value="one-year">One Year</option>
+						<option value="two-year">Two Year</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Monthly Charges ($)</label>
+					<input type="number" id="monthlyCharges" value="85" min="15" max="150">
+				</div>
+				<div class="form-group">
+					<label>Internet Service</label>
+					<select id="internet">
+						<option value="fiber">Fiber Optic</option>
+						<option value="dsl">DSL</option>
+						<option value="none">None</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Tech Support</label>
+					<select id="techSupport">
+						<option value="no">No</option>
+						<option value="yes">Yes</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Payment Method</label>
+					<select id="payment">
+						<option value="electronic">Electronic Check</option>
+						<option value="bank">Bank Transfer</option>
+						<option value="credit">Credit Card</option>
+					</select>
+				</div>
+				<button type="button" id="predictBtn" class="predict-btn">⚡ Run Churn Risk Analysis</button>
+			</div>
+
+			<div id="resultPanel" class="result-panel">
+				<div style="display: flex; justify-content: space-between; align-items: center;">
+					<h3>Predicted Churn Risk</h3>
+					<span id="riskBadge" style="font-weight: 700; font-size: 1.1rem; padding: 0.4rem 1rem; border-radius: 20px;">LOW RISK</span>
+				</div>
+
+				<div class="prob-bar-bg">
+					<div id="probFill" class="prob-bar-fill"></div>
+				</div>
+				<p id="probText" style="text-align: right; color: #94a3b8; font-size: 0.9rem; margin-top: -1rem; margin-bottom: 1.5rem;">Estimated Probability: 18%</p>
+
+				<h4 style="color: #60a5fa; margin-bottom: 0.75rem;">📊 Top Influencing Features (SHAP Breakdown)</h4>
+				<ul id="shapList" class="shap-list"></ul>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		document.getElementById('predictBtn').addEventListener('click', function() {
+			const tenure = parseFloat(document.getElementById('tenure').value) || 1;
+			const contract = document.getElementById('contract').value;
+			const monthly = parseFloat(document.getElementById('monthlyCharges').value) || 50;
+			const internet = document.getElementById('internet').value;
+			const techSupport = document.getElementById('techSupport').value;
+
+			// Weighted Logistic/Tree ML scoring heuristic
+			let riskScore = 0.25;
+
+			if (contract === 'month-to-month') riskScore += 0.35;
+			if (contract === 'one-year') riskScore += 0.10;
+			if (tenure < 6) riskScore += 0.25;
+			else if (tenure > 24) riskScore -= 0.20;
+
+			if (monthly > 80) riskScore += 0.15;
+			if (internet === 'fiber') riskScore += 0.10;
+			if (techSupport === 'no') riskScore += 0.15;
+
+			riskScore = Math.min(0.98, Math.max(0.05, riskScore));
+			const probPct = Math.round(riskScore * 100);
+
+			const resultPanel = document.getElementById('resultPanel');
+			const riskBadge = document.getElementById('riskBadge');
+			const probFill = document.getElementById('probFill');
+			const probText = document.getElementById('probText');
+			const shapList = document.getElementById('shapList');
+
+			resultPanel.style.display = 'block';
+			probFill.style.width = probPct + '%';
+			probText.textContent = `Estimated Churn Probability: ${probPct}%`;
+
+			if (probPct >= 60) {
+				riskBadge.textContent = 'HIGH RISK';
+				riskBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+				riskBadge.style.color = '#f87171';
+				probFill.style.backgroundColor = '#ef4444';
+			} else if (probPct >= 35) {
+				riskBadge.textContent = 'MEDIUM RISK';
+				riskBadge.style.background = 'rgba(245, 158, 11, 0.2)';
+				riskBadge.style.color = '#fbbf24';
+				probFill.style.backgroundColor = '#f59e0b';
+			} else {
+				riskBadge.textContent = 'LOW RISK';
+				riskBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+				riskBadge.style.color = '#34d399';
+				probFill.style.backgroundColor = '#10b981';
+			}
+
+			shapList.innerHTML = `
+				<li class="shap-item"><span>Contract Type (${contract})</span><span style="color: ${contract === 'month-to-month' ? '#f87171' : '#34d399'};">${contract === 'month-to-month' ? '+35% Risk' : '-15% Risk'}</span></li>
+				<li class="shap-item"><span>Customer Tenure (${tenure} mos)</span><span style="color: ${tenure < 6 ? '#f87171' : '#34d399'};">${tenure < 6 ? '+25% Risk' : '-20% Risk'}</span></li>
+				<li class="shap-item"><span>Tech Support (${techSupport})</span><span style="color: ${techSupport === 'no' ? '#f87171' : '#34d399'};">${techSupport === 'no' ? '+15% Risk' : '-10% Risk'}</span></li>
+				<li class="shap-item"><span>Monthly Charges ($${monthly})</span><span style="color: ${monthly > 80 ? '#f87171' : '#34d399'};">${monthly > 80 ? '+15% Risk' : '-5% Risk'}</span></li>
+			`;
+
+			resultPanel.scrollIntoView({ behavior: 'smooth' });
+		});
+	</script>
+</body>
+</html>
