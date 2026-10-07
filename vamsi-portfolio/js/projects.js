@@ -1,5 +1,13 @@
 const projects = [
 	{
+		title: "Activity Performance Monitor",
+		description: "Real-time computer vision pipeline engineered using OpenCV for feature extraction, activity classification, and multivariate time-series performance analytics.",
+		technologies: ["Python", "OpenCV", "Pandas", "NumPy", "Matplotlib", "Computer Vision"],
+		features: ["Real-time video feature extraction", "Multivariate activity classification pipeline", "Matplotlib analytics dashboard for trend reporting"],
+		github: "https://github.com/Kunchapuvamsi71/portfolio2",
+		demo: "../pages/demo-activity-monitor.html"
+	},
+	{
 		title: "AI Resume ATS & Skill Gap Optimizer",
 		description: "AI-powered application that analyzes resume text against target job descriptions, calculates real-time ATS match scores, extracts missing skill keywords, and generates actionable tailoring recommendations.",
 		technologies: ["Python", "FastAPI", "scikit-learn", "Google Gemini", "JavaScript", "HTML5", "CSS3"],
