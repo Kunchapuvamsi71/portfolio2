@@ -2,772 +2,560 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-	// =====================================================
-	// SETTINGS
-	// =====================================================
-
-	// Pages are inside /pages/, so we go one level up
-	// to reach /assets/documents/
-	const DOCUMENTS_BASE = "../assets/documents/";
-
-	// =====================================================
-	// RESUMES
-	// =====================================================
-
-	const resumes = [
-		{
-			title: "AI / ML Engineer",
-			file: "Vamsi_AIML_Engineer_Resume.pdf",
-			description:
-				"A focused resume for Artificial Intelligence and Machine Learning roles."
-		},
-		{
-			title: "Software Developer",
-			file: "Vamsi_Software_Developer_Resume_2Page.pdf",
-			description:
-				"A focused resume for software development and programming roles."
-		},
-		{
-			title: "Data Analyst",
-			file: "Vamsi_Data_Analyst_Resume_2Page.pdf",
-			description:
-				"A focused resume for data analysis, Python, Pandas and visualization roles."
-		},
-		{
-			title: "Business Development",
-			file: "Vamsi_Business_Development_Resume_2Page.pdf",
-			description:
-				"A focused resume for business development and related opportunities."
-		}
-	];
-
-	// =====================================================
-	// CERTIFICATIONS
-	// =====================================================
-
-	const certifications = [
-		{
-			title: "Certificate 1",
-			file: "averixis-ai-ml-training-certificate.pdf",
-			description:
-				"AI/ML training certificate from Averixis, covering artificial intelligence and machine learning fundamentals."
-		},
-		{
-			title: "Certificate 2",
-			file: "certificate-collection.pdf",
-			description:
-				"Combined PDF containing all my certificates in one document."
-		},
-		{
-			title: "Certificate 3",
-			file: "certificate-page-01.pdf",
-			description:
-				"Certificate 1 from my certificate collection."
-		},
-		{
-			title: "Certificate 4",
-			file: "certificate-page-02.pdf",
-			description:
-				"Certificate 2 from my certificate collection."
-		},
-		{
-			title: "Certificate 5",
-			file: "certificate-page-03.pdf",
-			description:
-				"Certificate 3 from my certificate collection."
-		},
-		{
-			title: "Certificate 6",
-			file: "certificate-page-04.pdf",
-			description:
-				"Certificate 4 from my certificate collection."
-		},
-		{
-			title: "Certificate 7",
-			file: "certificate-page-05.pdf",
-			description:
-				"Certificate 5 from my certificate collection."
-		},
-		{
-			title: "Certificate 8",
-			file: "certificate-page-06.pdf",
-			description:
-				"Certificate 6 from my certificate collection."
-		},
-		{
-			title: "Certificate 9",
-			file: "certificate-page-07.pdf",
-			description:
-				"Certificate 7 from my certificate collection."
-		},
-		{
-			title: "Certificate 10",
-			file: "certificate-page-08.pdf",
-			description:
-				"Certificate 8 from my certificate collection."
-		}
-	];
-
-	// =====================================================
-	// INTERNSHIPS
-	// =====================================================
-
-	const internships = [
-		{
-			title: "Internship 1",
-			file: "internship-1.pdf",
-			description:
-				"AI/ML internship at Averixis. Hands-on training in artificial intelligence and machine learning."
-		},
-		{
-			title: "Internship 2",
-			file: "internship-2.pdf",
-			description:
-				"C++ programming internship at CodeAlpha. Practical programming experience in C++."
-		}
-	];
-
-	// =====================================================
-	// FOOTER YEAR
-	// =====================================================
-
-	document.querySelectorAll("[data-year]").forEach(function (el) {
-		el.textContent = new Date().getFullYear();
-	});
-
-	// =====================================================
-	// MOBILE NAVIGATION
-	// =====================================================
-
-	const toggle = document.querySelector(".nav-toggle");
-	const nav = document.querySelector(".primary-navigation");
-
-	if (toggle && nav) {
-
-		toggle.addEventListener("click", function () {
-
-			const open =
-				toggle.getAttribute("aria-expanded") !== "true";
-
-			toggle.setAttribute(
-				"aria-expanded",
-				String(open)
-			);
-
-			toggle.setAttribute(
-				"aria-label",
-				open
-					? "Close navigation"
-					: "Open navigation"
-			);
-
-			nav.classList.toggle(
-				"is-open",
-				open
-			);
-		});
-
-		nav.querySelectorAll("a").forEach(function (link) {
-
-			link.addEventListener("click", function () {
-
-				toggle.setAttribute(
-					"aria-expanded",
-					"false"
-				);
-
-				toggle.setAttribute(
-					"aria-label",
-					"Open navigation"
-				);
-
-				nav.classList.remove(
-					"is-open"
-				);
-			});
-		});
-	}
-
-	// =====================================================
-	// EXISTING STATIC PDF CARDS
-	// =====================================================
-
-	document.querySelectorAll(
-		".record-card[data-document-file], " +
-		".document-card[data-document-file]"
-	).forEach(function (card) {
-
-		const file =
-			card.dataset.documentFile;
-
-		const title =
-			card.dataset.documentTitle ||
-			"PDF document";
-
-		const preview =
-			card.querySelector(
-				"[data-document-preview]"
-			);
-
-		const status =
-			card.querySelector(
-				"[data-document-status]"
-			);
-
-		const view =
-			card.querySelector(
-				"[data-document-view]"
-			);
-
-		const download =
-			card.querySelector(
-				"[data-document-download]"
-			);
-
-		if (!file) return;
-
-		if (view) {
-
-			view.href = file;
-			view.target = "_blank";
-			view.rel =
-				"noopener noreferrer";
-			view.hidden = false;
-		}
-
-		if (download) {
-
-			download.href = file;
-
-			download.setAttribute(
-				"download",
-				""
-			);
-
-			download.hidden = false;
-		}
-
-		if (preview) {
-
-			const iframe =
-				document.createElement(
-					"iframe"
-				);
-
-			iframe.src = file;
-
-			iframe.title =
-				title +
-				" PDF preview";
-
-			iframe.className =
-				"document-iframe";
-
-			iframe.width = "100%";
-			iframe.height = "420";
-			iframe.loading = "lazy";
-
-			iframe.setAttribute(
-				"style",
-				"border:0; width:100%;"
-			);
-
-			preview.replaceChildren(
-				iframe
-			);
-		}
-
-		fetch(
-			file,
-			{ method: "HEAD" }
-		)
-			.then(function (response) {
-
-				if (!response.ok) {
-					throw new Error(
-						"PDF not found"
-					);
-				}
-
-				if (status) {
-					status.textContent =
-						"PDF file found.";
-				}
-			})
-			.catch(function () {
-
-				if (status) {
-
-					status.textContent =
-						"PDF not found. Check the filename and relative path.";
-				}
-			});
-	});
-
-	// =====================================================
-	// PDF.JS
-	// =====================================================
-
-	const PDFJS_URL =
-		"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-
-	const PDFJS_WORKER =
-		"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-
-	let pdfJsPromise = null;
-
-	function loadPdfJs() {
-
-		if (pdfJsPromise) {
-			return pdfJsPromise;
-		}
-
-		pdfJsPromise =
-			new Promise(function (
-				resolve,
-				reject
-			) {
-
-				if (window.pdfjsLib) {
-
-					resolve(
-						window.pdfjsLib
-					);
-
-					return;
-				}
-
-				const script =
-					document.createElement(
-						"script"
-					);
-
-				script.src =
-					PDFJS_URL;
-
-				script.onload =
-					function () {
-
-						window
-							.pdfjsLib
-							.GlobalWorkerOptions
-							.workerSrc =
-							PDFJS_WORKER;
-
-						resolve(
-							window.pdfjsLib
-						);
-					};
-
-				script.onerror =
-					function () {
-
-						reject(
-							new Error(
-								"Could not load PDF.js"
-							)
-						);
-					};
-
-				document.head.appendChild(
-					script
-				);
-			});
-
-		return pdfJsPromise;
-	}
-
-	// =====================================================
-	// FALLBACK PDF VIEWER
-	// =====================================================
-
-	function fallbackIframe(
-		path,
-		preview,
-		title
-	) {
-
-		const iframe =
-			document.createElement(
-				"iframe"
-			);
-
-		iframe.className =
-			"document-iframe";
-
-		iframe.src =
-			path +
-			"#view=Fit&navpanes=0";
-
-		iframe.title =
-			title +
-			" PDF preview";
-
-		iframe.width = "100%";
-		iframe.height = "420";
-
-		iframe.setAttribute(
-			"style",
-			"border:0; width:100%;"
-		);
-
-		preview.replaceChildren(
-			iframe
-		);
-	}
-
-	// =====================================================
-	// RENDER PDF PREVIEW
-	// =====================================================
-
-	function renderPdfPreview(
-		path,
-		preview,
-		title
-	) {
-
-		preview.textContent =
-			"Loading preview...";
-
-		loadPdfJs()
-
-			.then(function (pdfjsLib) {
-
-				return pdfjsLib
-					.getDocument(path)
-					.promise;
-			})
-
-			.then(function (pdf) {
-
-				return pdf.getPage(1);
-			})
-
-			.then(function (page) {
-
-				const baseViewport =
-					page.getViewport({
-						scale: 1
-					});
-
-				const cardWidth =
-					preview.clientWidth ||
-					600;
-
-				const ratio =
-					window.devicePixelRatio ||
-					1;
-
-				const viewport =
-					page.getViewport({
-						scale:
-							(cardWidth /
-								baseViewport.width) *
-							ratio
-					});
-
-				const canvas =
-					document.createElement(
-						"canvas"
-					);
-
-				canvas.width =
-					viewport.width;
-
-				canvas.height =
-					viewport.height;
-
-				canvas.style.width =
-					"100%";
-
-				canvas.style.height =
-					"auto";
-
-				canvas.style.display =
-					"block";
-
-				canvas.setAttribute(
-					"role",
-					"img"
-				);
-
-				canvas.setAttribute(
-					"aria-label",
-					title +
-					" PDF preview"
-				);
-
-				return page
-					.render({
-						canvasContext:
-							canvas.getContext(
-								"2d"
-							),
-						viewport:
-							viewport
-					})
-					.promise
-
-					.then(function () {
-
-						preview.replaceChildren(
-							canvas
-						);
-					});
-			})
-
-			.catch(function () {
-
-				fallbackIframe(
-					path,
-					preview,
-					title
-				);
-			});
-	}
-
-	// =====================================================
-	// CREATE PDF CARD
-	// =====================================================
-
-	function createCard(
-		item,
-		folder
-	) {
-
-		const card =
-			document.createElement(
-				"article"
-			);
-
-		card.className =
-			"document-card";
-
-		// TITLE
-		const title =
-			document.createElement(
-				"h2"
-			);
-
-		title.textContent =
-			item.title;
-
-		// DESCRIPTION
-		const description =
-			document.createElement(
-				"p"
-			);
-
-		description.textContent =
-			item.description ||
-			"PDF document";
-
-		// PDF PATH
-		const path =
-			DOCUMENTS_BASE +
-			folder +
-			"/" +
-			encodeURIComponent(
-				item.file
-			);
-
-		// PREVIEW
-		const preview =
-			document.createElement(
-				"div"
-			);
-
-		preview.className =
-			"document-preview";
-
-		renderPdfPreview(
-			path,
-			preview,
-			item.title
-		);
-
-		// STATUS
-		const status =
-			document.createElement(
-				"p"
-			);
-
-		status.className =
-			"preview-message";
-
-		status.textContent =
-			"Checking PDF...";
-
-		fetch(
-			path,
-			{ method: "HEAD" }
-		)
-
-			.then(function (response) {
-
-				if (!response.ok) {
-					throw new Error(
-						"PDF not found"
-					);
-				}
-
-				status.textContent =
-					"PDF file found.";
-			})
-
-			.catch(function () {
-
-				status.textContent =
-					"PDF not found. Check the filename and folder: " +
-					path;
-			});
-
-		// ACTION BUTTONS
-		const actions =
-			document.createElement(
-				"div"
-			);
-
-		actions.className =
-			"document-actions";
-
-		// VIEW
-		const view =
-			document.createElement(
-				"a"
-			);
-
-		view.className =
-			"button-small";
-
-		view.href =
-			path;
-
-		view.target =
-			"_blank";
-
-		view.rel =
-			"noopener noreferrer";
-
-		view.textContent =
-			"View PDF";
-
-		// DOWNLOAD
-		const download =
-			document.createElement(
-				"a"
-			);
-
-		download.className =
-			"button-small";
-
-		download.href =
-			path;
-
-		download.setAttribute(
-			"download",
-			item.file
-		);
-
-		download.textContent =
-			"Download PDF";
-
-		actions.append(
-			view,
-			download
-		);
-
-		card.append(
-			title,
-			description,
-			preview,
-			status,
-			actions
-		);
-
-		return card;
-	}
-
-	// =====================================================
-	// RENDER LIST
-	// =====================================================
-
-	function renderList(
-		selector,
-		items,
-		folder
-	) {
-
-		const container =
-			document.querySelector(
-				selector
-			);
-
-		if (!container) {
-			return;
-		}
-
-		if (items.length > 0) {
-
-			container.replaceChildren(
-				...items.map(
-					function (item) {
-
-						return createCard(
-							item,
-							folder
-						);
-					}
-				)
-			);
-
-		} else {
-
-			const message =
-				document.createElement(
-					"p"
-				);
-
-			message.className =
-				"preview-message";
-
-			message.textContent =
-				"No documents configured.";
-
-			container.replaceChildren(
-				message
-			);
-		}
-	}
-
-	// =====================================================
-	// CERTIFICATIONS
-	// =====================================================
-
-	renderList(
-		"[data-certification-list]",
-		certifications,
-		"certificates"
-	);
-
-	// =====================================================
-	// INTERNSHIPS
-	// =====================================================
-
-	renderList(
-		"[data-internship-list]",
-		internships,
-		"internships"
-	);
-
-	// =====================================================
-	// RESUMES
-	// =====================================================
-
-	renderList(
-		"[data-resume-list]",
-		resumes,
-		"resumes"
-	);
+  // ============================================================
+  // SETTINGS
+  // ============================================================
+
+  // Pages are inside /pages/, so we go one level up
+  // to reach /assets/documents/
+  const DOCUMENTS_BASE = "../assets/documents/";
+
+  // ============================================================
+  // RESUMES
+  // ============================================================
+
+  const resumes = [
+    {
+      title: "AI / ML Engineer",
+      file: "Vamsi_AIML_Engineer_Resume.pdf",
+      description:
+        "A focused resume for Artificial Intelligence and Machine Learning roles."
+    },
+    {
+      title: "Software Developer",
+      file: "Vamsi_Software_Developer_Resume_2Page.pdf",
+      description:
+        "A focused resume for software development and programming roles."
+    },
+    {
+      title: "Data Analyst",
+      file: "Vamsi_Data_Analyst_Resume_2Page.pdf",
+      description:
+        "A focused resume for data analysis, Python, Pandas and visualization roles."
+    },
+    {
+      title: "Business Development",
+      file: "Vamsi_Business_Development_Resume_2Page.pdf",
+      description:
+        "A focused resume for business development and related opportunities."
+    }
+  ];
+
+  // ============================================================
+  // ACADEMICS
+  // ============================================================
+
+  const academics = [
+    {
+      degree:
+        "Bachelor of Technology in Artificial Intelligence and Machine Learning",
+      institution: "Dhanalakshmi Srinivasan University",
+      duration: "2023 - 2027",
+      score: "CGPA: 8.23"
+    },
+    {
+      degree: "Intermediate",
+      institution:
+        "Sri Gayathri Junior College, Anantapur District",
+      duration: "2021 - 2023",
+      score: "Percentage: 85%"
+    },
+    {
+      degree: "SSC",
+      institution:
+        "ZPH High School, Siddarampuram, Anantapur District",
+      duration: "2020 - 2021",
+      score: "Percentage: 93%"
+    }
+  ];
+
+  // ============================================================
+  // CERTIFICATIONS
+  // ============================================================
+  //
+  // IMPORTANT:
+  // Keep your existing certificate filenames here.
+  // These are the filenames visible in your existing main.js.
+  //
+
+  const certifications = [
+    {
+      title: "Certificate 1",
+      file: "averixis-ai-ml-training-certificate.pdf",
+      description:
+        "AI/ML training certificate from Averixis."
+    },
+    {
+      title: "Certificate 2",
+      file: "certificate-collection.pdf",
+      description:
+        "Combined PDF containing all my certificates in one document."
+    },
+    {
+      title: "Certificate 3",
+      file: "certificate-page-01.pdf",
+      description:
+        "Certificate document."
+    }
+  ];
+
+  // ============================================================
+  // INTERNSHIPS
+  // ============================================================
+
+  const internships = [
+    {
+      role: "AI/ML Intern",
+      company: "Averixis Solutions Pvt. Ltd.",
+      duration: "Apr 1 - May 31, 2026",
+      description: [
+        "Worked on artificial intelligence and machine learning related tasks.",
+        "Worked with Python and data-processing tools.",
+        "Collaborated with mentors and peers to complete assigned work."
+      ]
+    },
+    {
+      role: "C++ Programming Intern",
+      company: "CodeAlpha",
+      duration: "Jul 1 - Jul 31, 2026",
+      description: [
+        "Worked on core C++ programming and software-development fundamentals.",
+        "Applied data structures, algorithms and object-oriented programming.",
+        "Practiced writing and testing modular code."
+      ]
+    }
+  ];
+
+  // ============================================================
+  // PROJECTS
+  // ============================================================
+
+  const projects = [
+    {
+      title: "Activity Performance Monitor",
+      description:
+        "A computer-vision based project for extracting and processing activity-related features.",
+      technologies:
+        "Python, OpenCV, Pandas, NumPy, Matplotlib"
+    },
+    {
+      title: "Customer Churn Prediction",
+      description:
+        "Machine-learning project for predicting customer churn using cleaned and processed data.",
+      technologies:
+        "Python, scikit-learn, Pandas"
+    },
+    {
+      title: "Sentiment Analysis of Product Reviews",
+      description:
+        "Natural-language-processing project that classifies product reviews as positive or negative.",
+      technologies:
+        "Python, scikit-learn, NLTK"
+    }
+  ];
+
+  // ============================================================
+  // HELPER FUNCTIONS
+  // ============================================================
+
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function getElement(...ids) {
+    for (const id of ids) {
+      const element = document.getElementById(id);
+      if (element) {
+        return element;
+      }
+    }
+
+    return null;
+  }
+
+  function setHTML(element, html) {
+    if (element) {
+      element.innerHTML = html;
+    }
+  }
+
+  // ============================================================
+  // MOBILE NAVIGATION
+  // ============================================================
+
+  const menuButton = document.querySelector(
+    ".menu-toggle, .hamburger, #menu-toggle, #hamburger"
+  );
+
+  const navMenu = document.querySelector(
+    ".nav-links, .navbar-nav, #nav-links, #nav-menu"
+  );
+
+  if (menuButton && navMenu) {
+    menuButton.addEventListener("click", function () {
+      navMenu.classList.toggle("active");
+      menuButton.classList.toggle("active");
+    });
+
+    navMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navMenu.classList.remove("active");
+        menuButton.classList.remove("active");
+      });
+    });
+  }
+
+  // ============================================================
+  // ACTIVE NAVIGATION LINK
+  // ============================================================
+
+  const currentPage =
+    window.location.pathname.split("/").pop().toLowerCase();
+
+  document.querySelectorAll("nav a, .nav-links a").forEach(function (link) {
+    const href = link.getAttribute("href");
+
+    if (!href) return;
+
+    const cleanHref = href
+      .split("#")[0]
+      .split("?")[0]
+      .split("/")
+      .pop()
+      .toLowerCase();
+
+    if (
+      cleanHref &&
+      cleanHref === currentPage
+    ) {
+      link.classList.add("active");
+    }
+  });
+
+  // ============================================================
+  // RESUME RENDERING
+  // ============================================================
+
+  function renderResumes(container) {
+    if (!container) return;
+
+    container.innerHTML = resumes
+      .map(function (resume) {
+        const pdfPath = DOCUMENTS_BASE + "resumes/" + resume.file;
+
+        return `
+          <article class="resume-card">
+            <div class="resume-card-content">
+
+              <h3>${escapeHTML(resume.title)}</h3>
+
+              <p>
+                ${escapeHTML(resume.description)}
+              </p>
+
+              <div class="resume-actions">
+
+                <a
+                  href="${pdfPath}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn"
+                >
+                  View PDF
+                </a>
+
+                <a
+                  href="${pdfPath}"
+                  download
+                  class="btn"
+                >
+                  Download PDF
+                </a>
+
+              </div>
+
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  // ============================================================
+  // ACADEMICS RENDERING
+  // ============================================================
+
+  function renderAcademics(container) {
+    if (!container) return;
+
+    container.innerHTML = academics
+      .map(function (item) {
+        return `
+          <article class="academic-card">
+
+            <h3>
+              ${escapeHTML(item.degree)}
+            </h3>
+
+            <p>
+              <strong>
+                ${escapeHTML(item.institution)}
+              </strong>
+            </p>
+
+            <p>
+              ${escapeHTML(item.duration)}
+            </p>
+
+            <p>
+              ${escapeHTML(item.score)}
+            </p>
+
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  // ============================================================
+  // CERTIFICATIONS RENDERING
+  // ============================================================
+
+  function renderCertifications(container) {
+    if (!container) return;
+
+    container.innerHTML = certifications
+      .map(function (certificate) {
+
+        const certificatePath =
+          DOCUMENTS_BASE + certificate.file;
+
+        return `
+          <article class="certificate-card">
+
+            <h3>
+              ${escapeHTML(certificate.title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(certificate.description)}
+            </p>
+
+            <div class="certificate-actions">
+
+              <a
+                href="${certificatePath}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+              >
+                View Certificate
+              </a>
+
+              <a
+                href="${certificatePath}"
+                download
+                class="btn"
+              >
+                Download
+              </a>
+
+            </div>
+
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  // ============================================================
+  // INTERNSHIPS RENDERING
+  // ============================================================
+
+  function renderInternships(container) {
+    if (!container) return;
+
+    container.innerHTML = internships
+      .map(function (internship) {
+
+        const points = internship.description
+          .map(function (point) {
+            return `<li>${escapeHTML(point)}</li>`;
+          })
+          .join("");
+
+        return `
+          <article class="internship-card">
+
+            <h3>
+              ${escapeHTML(internship.role)}
+            </h3>
+
+            <h4>
+              ${escapeHTML(internship.company)}
+            </h4>
+
+            <p>
+              ${escapeHTML(internship.duration)}
+            </p>
+
+            <ul>
+              ${points}
+            </ul>
+
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  // ============================================================
+  // PROJECTS RENDERING
+  // ============================================================
+
+  function renderProjects(container) {
+    if (!container) return;
+
+    container.innerHTML = projects
+      .map(function (project) {
+
+        return `
+          <article class="project-card">
+
+            <h3>
+              ${escapeHTML(project.title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(project.description)}
+            </p>
+
+            <p>
+              <strong>Technologies:</strong>
+              ${escapeHTML(project.technologies)}
+            </p>
+
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  // ============================================================
+  // FIND COMMON CONTAINER IDs
+  // ============================================================
+
+  const resumesContainer = getElement(
+    "resumes-container",
+    "resume-container",
+    "resumes",
+    "resume-list"
+  );
+
+  const academicsContainer = getElement(
+    "academics-container",
+    "academic-container",
+    "academics",
+    "education-container"
+  );
+
+  const certificationsContainer = getElement(
+    "certifications-container",
+    "certification-container",
+    "certifications",
+    "certificate-container"
+  );
+
+  const internshipsContainer = getElement(
+    "internships-container",
+    "internship-container",
+    "internships",
+    "experience-container"
+  );
+
+  const projectsContainer = getElement(
+    "projects-container",
+    "project-container",
+    "projects",
+    "project-list"
+  );
+
+  // ============================================================
+  // RENDER ALL SECTIONS
+  // ============================================================
+
+  renderResumes(resumesContainer);
+  renderAcademics(academicsContainer);
+  renderCertifications(certificationsContainer);
+  renderInternships(internshipsContainer);
+  renderProjects(projectsContainer);
+
+  // ============================================================
+  // PDF LINKS
+  // ============================================================
+
+  document.querySelectorAll("[data-pdf]").forEach(function (link) {
+
+    const file = link.getAttribute("data-pdf");
+
+    if (!file) return;
+
+    link.setAttribute(
+      "href",
+      DOCUMENTS_BASE + file
+    );
+
+  });
+
+  // ============================================================
+  // FOOTER YEAR
+  // ============================================================
+
+  document.querySelectorAll(
+    "#current-year, .current-year"
+  ).forEach(function (element) {
+    element.textContent = new Date().getFullYear();
+  });
+
+  // ============================================================
+  // SMOOTH SCROLL
+  // ============================================================
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+    link.addEventListener("click", function (event) {
+
+      const targetId =
+        link.getAttribute("href");
+
+      if (
+        !targetId ||
+        targetId === "#"
+      ) {
+        return;
+      }
+
+      const target =
+        document.querySelector(targetId);
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    });
+
+  });
 
 });
