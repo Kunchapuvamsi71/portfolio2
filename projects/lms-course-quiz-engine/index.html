@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EdTech LMS Course & Quiz Engine Platform</title>
+	<style>
+		body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #090d12; color: #e2e8f0; margin: 0; padding: 2rem; }
+		.container { max-width: 800px; margin: 0 auto; }
+		h1 { color: #6366f1; border-bottom: 2px solid #1e293b; padding-bottom: 0.5rem; }
+		.course-card { background: #1e293b; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.05); }
+		.badge { background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+	</style>
+	<script src="src/engine.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>🎓 Interactive LMS Course & Assessment Platform</h1>
+		<p>Learning Management System frontend platform with course progress tracking and quiz scoring.</p>
+		<div id="courseContainer"></div>
+	</div>
+	<script>
+		const lms = new LMSEngine();
+		const container = document.getElementById('courseContainer');
+		const courses = lms.getCourses();
+		container.innerHTML = courses.map(c => `
+			<div class="course-card">
+				<span class="badge">${c.duration} • ${c.modules} Modules</span>
+				<h3 style="margin: 0.5rem 0 0.25rem 0;">${c.title}</h3>
+				<p style="color: #94a3b8; font-size: 0.9rem;">Interactive quiz assessment built-in.</p>
+			</div>
+		`).join('');
+	</script>
+</body>
+</html>
