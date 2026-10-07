@@ -1,26 +1,25 @@
 # Activity Performance Monitor
 
-An end-to-end real-time Computer Vision & Analytics application built with **Python**, **OpenCV**, **Pandas**, **NumPy**, **Matplotlib**, and **Flask**.
+Real-Time Computer Vision & Analytics application built with **Python**, **OpenCV**, **Pandas**, **NumPy**, **Matplotlib**, and **Flask**.
 
-## 📌 Architecture Overview
+## 📌 Production Directory Layout
 
 ```
 activity-performance-monitor/
-├── src/
+├── data/                      # Sample test video frames
+│   └── sample_frames/
+├── src/                       # Production source code modules
 │   ├── __init__.py
-│   ├── vision_pipeline.py     # HOG feature extractor & frame classifier
-│   └── analytics.py           # Pandas time-series logger & Matplotlib chart generator
+│   ├── vision_pipeline.py     # HOG feature energy extractor & frame classifier
+│   └── analytics.py           # Pandas time-series logger & Matplotlib plot generator
+├── models/                    # Vision classifier binaries
+├── tests/                     # Automated unit testing suite
+│   └── test_vision.py
 ├── app.py                     # Flask REST API server
-├── requirements.txt           # Dependency requirements
-└── README.md                  # Setup & execution guide
+├── requirements.txt           # Dependency specifications
+├── .gitignore
+└── README.md                  # Comprehensive setup & API reference
 ```
-
-## ⚡ Features
-
-* **Feature Extraction:** Calculates gradient magnitude & HOG feature energy vectors from video frames using OpenCV.
-* **Heuristic Activity Classification:** Classifies movement energy into `WORKING`, `WALKING`, `RUNNING`, or `SITTING` states.
-* **Time-Series Analytics:** Logs data with Pandas and renders multi-panel visual analytics charts with Matplotlib.
-* **REST API:** Provides endpoints for frame processing and analytics retrieval.
 
 ## 🚀 Quick Setup & Run Instructions
 
@@ -28,12 +27,12 @@ activity-performance-monitor/
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Test Vision Pipeline
+# 2. Run Automated Unit Test Suite
+python -m unittest discover tests
+
+# 3. Test Vision Pipeline
 python src/vision_pipeline.py
 
-# 3. Test Analytics Report Generator
-python src/analytics.py
-
-# 4. Run Flask Web Server
+# 4. Start Flask REST API Server
 python app.py
 ```

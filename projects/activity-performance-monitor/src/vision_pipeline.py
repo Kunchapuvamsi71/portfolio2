@@ -1,6 +1,10 @@
-import cv2
 import numpy as np
 import time
+
+try:
+    import cv2
+except ImportError:
+    cv2 = None
 
 class ActivityClassifier:
     """
@@ -13,15 +17,17 @@ class ActivityClassifier:
 
     def extract_features(self, frame):
         """Extract HOG / Motion energy features from frame."""
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        resized = cv2.resize(gray, (64, 64))
-        
-        # Calculate gradient magnitude and angle
-        gx = cv2.Sobel(resized, cv2.CV_32F, 1, 0, ksize=1)
-        gy = cv2.Sobel(resized, cv2.CV_32F, 0, 1, ksize=1)
-        mag, angle = cv2.cartToPolar(gx, gy, angleInDegrees=True)
-        
-        feature_vector = mag.flatten()[:self.feature_vector_size]
+        if cv2 is not None:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            resized = cv2.resize(gray, (64, 64))
+            gx = cv2.Sobel(resized, cv2.CV_32F, 1, 0, ksize=1)
+            gy = cv2.Sobel(resized, cv2.CV_32F, 0, 1, ksize=1)
+            mag, angle = cv2.cartToPolar(gx, gy, angleInDegrees=True)
+            feature_vector = mag.flatten()[:self.feature_vector_size]
+        else:
+            # Synthetic NumPy feature extraction fallback
+            feature_vector = np.mean(frame, axis=2).flatten()[:self.feature_vector_size]
+            
         return feature_vector
 
     def classify_frame(self, frame):
@@ -29,7 +35,6 @@ class ActivityClassifier:
         features = self.extract_features(frame)
         energy = float(np.sum(features))
         
-        # Rule-based heuristic classification for energy thresholds
         if energy > 150000:
             activity = "RUNNING"
             confidence = min(0.99, 0.85 + (energy / 300000))

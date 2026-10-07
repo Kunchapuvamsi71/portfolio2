@@ -1,29 +1,29 @@
 # ChurnWise 2.0 ML Platform
 
-End-to-End Customer Churn Prediction & Model Explainability System built with **Python**, **Scikit-Learn**, **XGBoost**, **Pandas**, **Joblib**, and **Flask**.
+Production-grade Customer Churn Prediction & Model Explainability Engine built with **Python**, **Scikit-Learn**, **XGBoost**, **Pandas**, **Joblib**, and **Flask**.
 
-## 📌 Architecture Overview
+## 📌 Production Directory Layout
 
 ```
 churnwise-ml-platform/
-├── data/
-│   └── generate_dataset.py    # Synthetic telco dataset generator
-├── src/
+├── data/                      # Data pipeline & dataset generator
+│   └── generate_dataset.py
+├── src/                       # Production source code modules
 │   ├── __init__.py
-│   ├── train_model.py         # Scikit-learn Random Forest/XGBoost training pipeline
-│   └── explainability.py      # Feature attribution & SHAP explainer engine
+│   ├── data_loader.py         # Data loading & ColumnTransformer preprocessing
+│   ├── model.py               # Random Forest / XGBoost model architecture
+│   ├── train.py               # Training pipeline & evaluation metrics
+│   ├── inference.py           # Model scoring & inference engine
+│   └── explainability.py      # SHAP feature attribution calculation engine
+├── models/                    # Trained model binary weights
+│   └── model.joblib
+├── tests/                     # Automated unit testing suite
+│   └── test_model.py
 ├── app.py                     # Flask REST prediction API
-├── requirements.txt           # Dependency requirements
-└── README.md                  # Model training & API documentation
+├── requirements.txt           # Python dependency specifications
+├── .gitignore
+└── README.md                  # Comprehensive setup & API reference
 ```
-
-## ⚡ Features
-
-* **Dataset Generation:** Synthesizes multi-feature telco customer profiles.
-* **Pre-processing & Pipeline:** `ColumnTransformer` with `StandardScaler` and `OneHotEncoder`.
-* **Model Training:** Random Forest Classifier with ROC-AUC evaluation and `.joblib` pipeline serialization.
-* **Feature Explainability:** Attribution engine breaking down top risk drivers per prediction.
-* **REST API:** `/api/predict` endpoint for single/batch inference.
 
 ## 🚀 Quick Setup & Run Instructions
 
@@ -31,12 +31,12 @@ churnwise-ml-platform/
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Generate Dataset & Train Model
-python src/train_model.py
+# 2. Run Training Pipeline & Save Model Binary
+python src/train.py
 
-# 3. Test Explainability Engine
-python src/explainability.py
+# 3. Run Unit Test Suite
+python -m unittest discover tests
 
-# 4. Launch REST Prediction Server
+# 4. Start Flask REST API Server
 python app.py
 ```
