@@ -91,24 +91,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	const resumes = [
 		{
-			title: "AI/ML Engineer Resume",
-			file: "Vamsi_AIML_Engineer_Resume.pdf",
-			description: "Resume focused on Artificial Intelligence, Machine Learning, Computer Vision and Python."
+			title: "AI / ML Specialization",
+			file: "Vamsi_resume_aiml.pdf",
+			description: "Resume focused on Artificial Intelligence, Machine Learning, Computer Vision, and Python."
 		},
 		{
-			title: "Software Developer Resume",
-			file: "Vamsi_Software_Developer_Resume_2Page.pdf",
-			description: "Resume focused on C++, Python, Data Structures, Algorithms, OOP and Web Development."
+			title: "Software Development (Java)",
+			file: "Vamsi_Resume_java.pdf",
+			description: "Resume focused on C++, Java, Data Structures, Algorithms, OOP, and Web Development."
 		},
 		{
-			title: "Data Analyst Resume",
-			file: "Vamsi_Data_Analyst_Resume_2Page.pdf",
-			description: "Resume focused on Python, Pandas, NumPy, Matplotlib and data analysis."
+			title: "General / Associate Trainee",
+			file: "vamsi_resume_associate_traine.pdf",
+			description: "A broad technical overview for graduate engineering, trainee, and software opportunities."
 		},
 		{
-			title: "Business Development Resume",
-			file: "Vamsi_Business_Development_Resume_2Page.pdf",
-			description: "Resume focused on communication, analytical thinking, market research and business development."
+			title: "Business Development",
+			file: "vkbusinessdevelopment.pdf",
+			description: "Resume focused on business development, client engagement, and sales strategy."
+		},
+		{
+			title: "Digital Marketing",
+			file: "Kunchapu_Vamsi_Krushna_Resume_DigitalMarketing.pdf",
+			description: "Resume focused on digital marketing, online campaigns, branding, and content growth."
+		},
+		{
+			title: "Learning Management System (LMS)",
+			file: "Kunchapu_Vamsi_Krushna_Resume_LMS.pdf",
+			description: "Resume focused on LMS platform development, EdTech tools, and web interface design."
+		},
+		{
+			title: "Business Development Consultant (BDC)",
+			file: "Vamsi_Krushna_Resume_bdc.pdf",
+			description: "Resume focused on consultative selling, relationship management, and counseling."
 		}
 	];
 
